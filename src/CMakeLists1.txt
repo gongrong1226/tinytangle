@@ -1,0 +1,10 @@
+#包含子项目
+project(src)
+
+FILE(GLOB_RECURSE tinychain_SOURCES "*.cpp")
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../include)
+
+
+#add_subdirectory("tinytangle")
+#add_subdirectory("sqlite3pp")
