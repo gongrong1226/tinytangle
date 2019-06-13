@@ -3,7 +3,7 @@
 namespace tangle {
 
 
-Dag::Dag(int id):id_(id), thread_pool_(4,0){
+Dag::Dag(int id):id_(id), thread_pool_(1,0){
 	//dag_db_.create_genesis_block;
 	difficulty_ = DIFFICULTY;
 	version_ = "v1.0";
@@ -82,6 +82,9 @@ bool Dag::creatUnit(Unit& newUnit, const Transaction& tx, const private_key_t& p
 	log::info(__FUNCTION__) << "pushTip ok";
 
 	//网络广播交易
+
+	//延时5S再发送交易
+	std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 	broadcastUnit(newUnit.to_json());
 	log::info(__FUNCTION__) << "broadcastUnit ok";
 
@@ -153,6 +156,10 @@ void Dag::pushTip(const Unit& newUnit) {
 		return true;
 	}
 
+	Unit testUnit;
+	if (dag_db_.getUnit(tip.getHash(), testUnit)) {
+		return false;
+	}
 	return true;
 }
 
@@ -170,7 +177,7 @@ bool Dag::getRandTip(uint32_t& index) {
 	return true;
 }
 
-bool Dag::selectTips(sha256_t(&tipsHash)[2]) { //多进程时资源竞争问题？
+bool Dag::selectTips(sha256_t (&tipsHash)[2]) { //多进程时资源竞争问题？
 	uint32_t rand = 0;
 	int tipCount = 0;
 	tipsHash[0] = ""; //initialize

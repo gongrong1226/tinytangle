@@ -11,8 +11,8 @@
 namespace tangle {
 	using namespace std;
 class Dag{
-	const int DIFFICULTY = 0x3FFFF; //4个0
-	//const int DIFFICULTY = 0xF; //1个0
+	//const int DIFFICULTY = 0x3FFFF; //4个0
+	const int DIFFICULTY = 0xF; //4个0
 	//TODO  change vector to mutilmap
 	typedef std::vector<Unit> tipsPool_t;  
 public:
@@ -25,7 +25,7 @@ public:
 		stopProdUnits();
 	}
 	void init();
-	void startProdUnits(const string &msg) {		is_producing_ = true;		thread([&]() {			while (is_producing_) {				thread_pool_.wait_empty();				pushInfo(msg);/////////////			}		}).detach();	}	void stopProdUnits(void) {		is_producing_ = false;	}	void mineOnce(const string &msg) {		pushInfo(msg);	}	void getNewKeyPair(KeyPair& newKey);
+	void startProdUnits(const string &msg) {		is_producing_ = true;		thread([&]() {			while (is_producing_) {				thread_pool_.wait_empty();				pushInfo(msg);/////////////			}		}).detach();	}	void stopProdUnits(void) {		is_producing_ = false;	}	void showTips(void) {		lock_guard<mutex> guard(m_tips_pool_lock);		cout << "---------tips begin-------------" << endl;		cout << tipsPool_.size() << " Tips: " << endl;		int cnt = 1;		for (auto i = tipsPool_.begin(); i != tipsPool_.end(); ++i) {			cout << "Tip " << cnt++ << ": " << endl;			cout << "\thash :" << (*i).getHash() << endl;			cout << "\ttiphash1: " << (*i).getHheader().tipsHash[0] << endl;			cout << "\ttiphash2: " << (*i).getHheader().tipsHash[1] << endl;			cout << "\tmessage: " << (*i).getTransaction().getMessage() << endl;		}		cout << "----------tips end---------------" << endl;	}	void mineOnce(const string &msg) {		pushInfo(msg);	}	void getNewKeyPair(KeyPair& newKey);
 	//根据交易、私钥生成尖端并放入池中
 	bool creatUnit(Unit& newUnit, const Transaction& tx, const private_key_t& privateKey);
 
@@ -54,7 +54,7 @@ public:
 	void eraseTip(const Unit& newUnit);
 
 	//尖端选择，并将所选尖端放入数据库
-	bool selectTips(sha256_t(&tips)[2]); //资源竞争问题
+	bool selectTips(sha256_t (&tips)[2]); //资源竞争问题
 	
 	//查询目标地址余额
 	bool getBalance(const address_t& encodePubKey, value& balance);

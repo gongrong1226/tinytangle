@@ -27,7 +27,7 @@ public:
 	static std::string globalStr;
 	static void setStr(std::string k) {
 		globalStr = k;
-	}
+	} 
 };
 // ---------------------------- typedef ----------------------------
 typedef std::string sha256_t;

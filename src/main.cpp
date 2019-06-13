@@ -150,6 +150,9 @@ int main(int argc, char* argv[])
 			log::info("cmd_handle") << "start";
 			dag.startProdUnits(ip_str);
 		}
+		else if (cmd == "tips") {
+			dag.showTips();
+		}
 		else {
 			log::debug("cmd_handle") << "unknown cmd";
 		}
