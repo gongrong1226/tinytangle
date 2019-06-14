@@ -20,13 +20,13 @@ $ sudo apt-get install sqlitebrowser
 **Compile**  
 
 ```sh
-$ sh./install.sh
+$ sh ./install.sh
 ```
 
 **run**  
 
 ```sh
-$ sh./run.sh
+$ sh ./run.sh
 ```
 
 **command**  
