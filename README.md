@@ -55,4 +55,4 @@ You can send a command by udp client.
 "quit" ------ quit  
 ```  
 ## At last but not least
-It's `Bin Cao` that took me to learn the blockchain and improve my ability. I am very grateful to Teacher `Cao Bin`. Although he used to say that he did not teach me anything.
+It's `Bin Cao` that took me to learn the blockchain and improve my ability. I am very grateful to Teacher `Bin Cao`. Although he used to say that he did not teach me anything.
